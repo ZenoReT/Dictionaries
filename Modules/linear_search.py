@@ -1,7 +1,9 @@
+import sys
 import utils
+from i_dict import i_dict
 
 
-class Linear_search_array:
+class Linear_search_array(i_dict):
     def __init__(self, elements_type):
         self.array = []
         (ok, msg) = utils.check_type(elements_type)

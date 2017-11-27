@@ -1,7 +1,9 @@
+import sys
 import utils
+from i_dict import i_dict
 
 
-class Ordered_array:
+class Ordered_array(i_dict):
     def __init__(self, elements_type):
         self.ord_array = []
         (ok, msg) = utils.check_type(elements_type)

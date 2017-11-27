@@ -1,4 +1,6 @@
+import sys
 import utils
+from i_dict import i_dict
 
 
 class Node:
@@ -11,7 +13,7 @@ class Node:
         self.balance_factor = 0
 
 
-class Balanced_tree:
+class Balanced_tree(i_dict):
     def __init__(self, elements_type):
         (ok, msg) = utils.check_type(elements_type)
         if not ok:

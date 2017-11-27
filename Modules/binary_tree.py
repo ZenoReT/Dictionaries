@@ -1,4 +1,6 @@
+import sys
 import utils
+from i_dict import i_dict
 
 
 class Node:
@@ -9,7 +11,7 @@ class Node:
         self.left = None
 
 
-class Binary_tree:
+class Binary_tree(i_dict):
     def __init__(self, elements_type):
         (ok, msg) = utils.check_type(elements_type)
         if not ok:
