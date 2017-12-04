@@ -147,9 +147,9 @@ class Binary_tree:
             node.sub_tree_size += 1
             previous_node = node
             if node.value < element:
-                node = node.left
-            elif node.value > element:
                 node = node.right
+            elif node.value > element:
+                node = node.left
         node = Node(element)
         if element > previous_node.value:
             previous_node.right = node

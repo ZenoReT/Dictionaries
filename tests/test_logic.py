@@ -396,7 +396,6 @@ class Test_logic(unittest.TestCase):
         table.append("a")
         table.append("aa")
         index = table.index_of("aa")
-        print(table.table)
 
         expected = table._get_hash("aa")
 
