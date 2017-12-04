@@ -1,9 +1,8 @@
 import sys
-import zope.interface
 import unittest
 
 
-class properties_tests(unittest.TestCase):
+class Test_properties(unittest.TestCase):
     def test_append():
         return
 

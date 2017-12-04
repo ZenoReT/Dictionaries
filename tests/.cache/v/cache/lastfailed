@@ -1,0 +1,7 @@
+{
+  "logic_tests.py::FieldTest::test_balanced_tree_right_element_index": true,
+  "logic_tests.py::FieldTest::test_binary_tree_right_element_at_index": true,
+  "logic_tests.py::FieldTest::test_binary_tree_right_element_index": true,
+  "test_logic.py::Test_logic::test_balanced_tree_insert_works_correct": true,
+  "test_logic.py::Test_logic::test_binary_tree_insert_works_correct": true
+}

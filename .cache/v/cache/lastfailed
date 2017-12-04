@@ -1,0 +1,10 @@
+{
+  "tests/test_logic.py::Test_logic::test_balanced_tree_right_element_index": true,
+  "tests/test_logic.py::Test_logic::test_binary_tree_right_element_at_index": true,
+  "tests/test_logic.py::Test_logic::test_binary_tree_right_element_index": true,
+  "tests/test_properties.py::Test_properties": true,
+  "tests/test_properties.py::Test_properties::test_append": true,
+  "tests/test_properties.py::Test_properties::test_contains": true,
+  "tests/test_properties.py::Test_properties::test_element": true,
+  "tests/test_properties.py::Test_properties::test_index_of": true
+}
