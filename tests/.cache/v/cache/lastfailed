@@ -1,5 +1,0 @@
-{
-  "logic_tests.py::FieldTest::test_balanced_tree_right_element_index": true,
-  "logic_tests.py::FieldTest::test_binary_tree_right_element_at_index": true,
-  "logic_tests.py::FieldTest::test_binary_tree_right_element_index": true
-}

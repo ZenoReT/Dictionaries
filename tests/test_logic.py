@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import unittest
 import sys
 from modules import linear_search

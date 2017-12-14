@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 import utils
 
@@ -101,7 +102,7 @@ class Balanced_tree:
                              \rShould be: {1}'.format(type(element),
                                                       self.elements_type))
         if self.root.value is None:
-            self.root.value = element
+            self.root = Node(element, None)
         else:
             parent_node = self._find_parent_for(element)
             if parent_node.value > element:
@@ -199,7 +200,6 @@ class Balanced_tree:
             if replace_node.right is not None:
                 previous_node.left = replace_node.right
             current_node.value = replace_node.value
-        self._update_balance(current_node)
 
     def insert(self, index, element):
         index = utils.parse_int(index)
@@ -218,6 +218,8 @@ class Balanced_tree:
                 node = node.right
             elif node.value > element:
                 node = node.left
+            else:
+                return
         node = Node(element, previous_node)
         if element > previous_node.value:
             previous_node.right = node
