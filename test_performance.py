@@ -40,6 +40,7 @@ def main():
             print(type(dictionary).__name__)
             tests = _get_tests_for_dict(dictionary, test_type, data)
             run_measurements(tests)
+            dictionary.clear()
             print()
     return
 
@@ -150,8 +151,14 @@ def run_measurements(tester):
                   .format(test.__name__,
                           (time.time() - start) / len(tester.elements)))
         else:
-            print('{0} works: {1}seconds'
-                  .format(test.__name__, time.time() - start))
+            if (test.__name__.endswith('append') or
+                    type(test).__name__.endswith('delete')):
+                print('{0} works: {1}seconds'
+                      .format(test.__name__,
+                              (time.time() - start) / len(tester.elements)))
+            else:
+                print('{0} works: {1}seconds'
+                      .format(test.__name__, time.time() - start))
         dict_size = 0
         if type(tester.dictionary) is linear_search.Linear_search:
             dict_size = sys.getsizeof(tester.dictionary.array)
