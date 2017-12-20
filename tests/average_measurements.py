@@ -7,11 +7,9 @@ from modules import hash_table
 
 
 class Average_measurements:
-    def __init__(self, dictionary, path):
+    def __init__(self, dictionary, elements):
         self.dictionary = dictionary
-        self.elements = []
-        with open(os.path.join(path), 'r') as file:
-            self.elements = file.read().split()
+        self.elements = elements
 
     def test_append(self):
         if type(self.dictionary) is dict:
@@ -67,12 +65,14 @@ class Average_measurements:
         return
 
     def test_delete(self):
-        if type(self.dictionary) is dict:
-            for element in self.elements:
-                if element in self.dictionary:
-                    self.dictionary.pop(element)
-        else:
-            for element in self.elements:
-                if self.dictionary.contains(element):
+        try:
+            if type(self.dictionary) is dict:
+                for element in self.elements:
+                    if element in self.dictionary:
+                        self.dictionary.pop(element)
+            else:
+                for element in self.elements:
                     self.dictionary.delete(element)
+        except ValueError:
+            pass
         return
