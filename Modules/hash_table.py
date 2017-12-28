@@ -19,7 +19,11 @@ class Hash_table:
             raise TypeError('Unacceptable type of element: {0}\n\
                              \rShould be: {1}'.format(type(element),
                                                       self.elements_type))
-        self.table[self._get_hash(element)] = element
+        element_hash = self._get_hash(element)
+        if element_hash in self.table:
+            self.table[element_hash].append(element)
+        else:
+            self.table[element_hash] = [element]
 
     def element(self, index):
         index = utils.parse_int(index)
@@ -36,7 +40,9 @@ class Hash_table:
                                                       self.elements_type))
         index = self._get_hash(element)
         if index in self.table:
-            return index
+            for i in range(len(self.table[index])):
+                if element == self.table[index][i]:
+                    return index
         return -1
 
     def contains(self, element):
@@ -45,11 +51,15 @@ class Hash_table:
         return True
 
     def _get_hash(self, element):
+        # if you want to break the hash, delete next comment
+        # return 1
+        current_hash = 0
+        const_pow = 1
         element_hash = 0
         element_str = str(element)
         for char in element_str:
-            temp = element_hash * self.const + ord(char)
-            element_hash += (temp % len(element_str))
+            element_hash += ord(char) * (self.const ^ const_pow)
+            const_pow += 1
         return element_hash
 
     def delete(self, element):
@@ -58,7 +68,14 @@ class Hash_table:
             raise TypeError('Unacceptable type of element: {0}\n\
                              \rShould be: {1}'.format(type(element),
                                                       self.elements_type))
-        self.table.pop(self._get_hash(element))
+        element_hash = self._get_hash(element)
+        if element_hash in self.table:
+            for index in range(len(self.table.get(element_hash))):
+                if self.table[element_hash][index] == element:
+                    self.table[element_hash].pop(index)
+                    break
+        if len(self.table[element_hash]) == 0:
+            self.table.pop(element_hash)
 
     def insert(self, index, element):
         index = utils.parse_int(index)
@@ -69,7 +86,10 @@ class Hash_table:
                                                       self.elements_type))
         if index is None:
             raise TypeError('Index should be integer!')
-        self.table[index] = element
+        if index in self.table:
+            self.table[index].append(element)
+        else:
+            self.table[index] = [element]
 
     def count(self):
         return len(self.table.keys())

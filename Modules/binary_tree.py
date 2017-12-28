@@ -142,20 +142,8 @@ class Binary_tree:
             raise TypeError('Unacceptable type of element: {0}\n\
                              \rShould be: {1}'.format(type(element),
                                                       self.elements_type))
-        node = self.root
-        previous_node = node
-        while node is not None and node.value != element:
-            node.sub_tree_size += 1
-            previous_node = node
-            if node.value < element:
-                node = node.right
-            elif node.value > element:
-                node = node.left
-        node = Node(element)
-        if element > previous_node.value:
-            previous_node.right = node
-        else:
-            previous_node.left = node
+        node = self.element(index)
+        node.value = element
 
     def count(self):
         if self.root is None:
@@ -163,4 +151,4 @@ class Binary_tree:
         return self.root.sub_tree_size
 
     def clear(self):
-        self.root = None
+        self.root = Node(None)

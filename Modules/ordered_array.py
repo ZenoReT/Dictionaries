@@ -58,7 +58,10 @@ class Ordered_array:
             raise TypeError('Unacceptable type of element: {0}\n\
                              \rShould be: {1}'.format(type(element),
                                                       self.elements_type))
-        self.ord_array.remove(element)
+        index = self.index_of(element)
+        if index < 0:
+            return
+        self.ord_array.pop(index)
 
     def insert(self, index, element):
         index = utils.parse_int(index)

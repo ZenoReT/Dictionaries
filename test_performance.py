@@ -18,7 +18,7 @@ def main():
     args = input('Input new args: ').split()
     parsed_args = parser.parse_args(args)
     dictionaries, data, test_type = treat_args(parsed_args)
-    if len(data) == 0:
+    if data is None:
         raise ValueError('No arguments were get, check your arguments')
     if test_type == 'average_measurements':
         for dictionary in dictionaries:
@@ -37,11 +37,13 @@ def main():
                 print()
     elif test_type == 'best_measurements' or test_type == 'worst_measurements':
         for dictionary in dictionaries:
-            print(type(dictionary).__name__)
-            tests = _get_tests_for_dict(dictionary, test_type, data)
-            run_measurements(tests)
-            dictionary.clear()
-            print()
+            for data_size in data:
+                elements = _generate_data(data_size)
+                print(type(dictionary).__name__, data_size)
+                tests = _get_tests_for_dict(dictionary, test_type, elements)
+                run_measurements(tests)
+                dictionary.clear()
+                print()
     return
 
 
@@ -53,12 +55,10 @@ def treat_args(parsed_args):
         dictionaries = _get_selected_dictionary(parsed_args.dictionary_type)
         dict_type = parsed_args.dictionary_type
     if parsed_args.worst_measurements:
-        data_size = parsed_args.worst_measurements
-        data = _generate_data(data_size)
+        data = parsed_args.worst_measurements
         test_type = 'worst_measurements'
     elif parsed_args.best_measurements:
-        data_size = parsed_args.best_measurements
-        data = _generate_data(data_size)
+        data = parsed_args.best_measurements
         test_type = 'best_measurements'
     elif parsed_args.average_measurements:
         path = parsed_args.average_measurements
@@ -75,14 +75,14 @@ def _get_selected_dictionary(dictionary_type):
                 'balanced_tree': balanced_tree.Balanced_tree,
                 'hash_table': hash_table.Hash_table}
     if dictionary_type == 'dict':
-        dictionary.append({})
+        dictionaries.append({})
     elif dictionary_type == 'all':
-        dictionary = [{}]
+        dictionaries = [{}]
         for dict_type in comparer:
-            dictionary.append(comparer[dict_type]('str'))
+            dictionaries.append(comparer[dict_type]('str'))
     else:
         dictionaries.append(comparer[dictionary_type]('str'))
-    return dictionary
+    return dictionaries
 
 
 def _generate_data(data_size):
@@ -126,17 +126,18 @@ def create_parser():
                      \r-am\n\
                      \r-dt')
     parser.add_argument('-wm', '--worst_measurements',
-                        type=int,
-                        help='running worst tests with selected data size')
+                        type=int, action='append',
+                        help='running worst tests with selected data sizes')
     parser.add_argument('-bm', '--best_measurements',
-                        type=int,
-                        help='running best tests with selected data size')
+                        type=int, action='append',
+                        help='running best tests with selected data sizes')
     parser.add_argument('-am', '--average_measurements',
                         type=str,
                         help='running tests for files in selected folder')
     parser.add_argument('-dt', '--dictionary_type',
                         type=str,
-                        help='choosing type of dictionary')
+                        help='choosing type of dictionary\n\
+                              \rprint "all" for start every dictionary tests')
     return parser
 
 
@@ -146,19 +147,9 @@ def run_measurements(tester):
     for test in tests:
         start = time.time()
         test()
-        if type(tester).__name__.lower() == 'average_measurements':
-            print('{0} works: {1}seconds'
-                  .format(test.__name__,
-                          (time.time() - start) / len(tester.elements)))
-        else:
-            if (test.__name__.endswith('append') or
-                    type(test).__name__.endswith('delete')):
-                print('{0} works: {1}seconds'
-                      .format(test.__name__,
-                              (time.time() - start) / len(tester.elements)))
-            else:
-                print('{0} works: {1}seconds'
-                      .format(test.__name__, time.time() - start))
+        print('{0} works: {1}seconds'
+              .format(test.__name__,
+                      (time.time() - start) / len(tester.elements)))
         dict_size = 0
         if type(tester.dictionary) is linear_search.Linear_search:
             dict_size = sys.getsizeof(tester.dictionary.array)
@@ -170,6 +161,8 @@ def run_measurements(tester):
             dict_size *= tester.dictionary.root.sub_tree_size
         elif type(tester.dictionary) is hash_table.Hash_table:
             dict_size = sys.getsizeof(tester.dictionary.table)
+            for value in tester.dictionary.table.values():
+                dict_size += sys.getsizeof(value)
         else:
             dict_size = sys.getsizeof(tester.dictionary)
         print('The size of dictionary in bytes: {0}'.format(dict_size))

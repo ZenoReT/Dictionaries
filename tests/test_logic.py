@@ -258,9 +258,9 @@ class Test_logic(unittest.TestCase):
         tree.insert(1, "aaa")
 
         expected = "aaa"
-        actually = tree.element(2).value
+        actually = tree.element(1).value
 
-        self.assertEqual(3, tree.count())
+        self.assertEqual(2, tree.count())
         self.assertEqual(expected, actually)
 
     def test_binary_tree_count_works_correct(self):
@@ -279,7 +279,7 @@ class Test_logic(unittest.TestCase):
         tree.clear()
 
         expected = None
-        actually = tree.root
+        actually = tree.root.value
 
         self.assertEqual(expected, actually)
 
@@ -354,9 +354,9 @@ class Test_logic(unittest.TestCase):
         tree.insert(1, "aaa")
 
         expected = "aaa"
-        actually = tree.element(2).value
+        actually = tree.element(1).value
 
-        self.assertEqual(3, tree.count())
+        self.assertEqual(2, tree.count())
         self.assertEqual(expected, actually)
 
     def test_balanced_tree_count_works_correct(self):
@@ -375,7 +375,7 @@ class Test_logic(unittest.TestCase):
         tree.clear()
 
         expected = None
-        actually = tree.root
+        actually = tree.root.value
 
         self.assertEqual(expected, actually)
 
@@ -388,7 +388,7 @@ class Test_logic(unittest.TestCase):
         actually = []
 
         for key in table.table.keys():
-            actually.append(table.table[key])
+            actually.append(table.table[key][0])
 
         self.assertEqual(actually, expected)
 
@@ -406,7 +406,7 @@ class Test_logic(unittest.TestCase):
         table = hash_table.Hash_table("str")
         table.append("a")
         table.append("aa")
-        element = table.element(table._get_hash("a"))
+        element = table.element(table._get_hash("a"))[0]
 
         expected = "a"
 
@@ -451,7 +451,7 @@ class Test_logic(unittest.TestCase):
 
         expected = "aaa"
 
-        self.assertEqual(expected, table.element(1))
+        self.assertEqual(expected, table.element(1)[0])
 
     def test_hash_table_count_works_correct(self):
         table = hash_table.Hash_table("str")

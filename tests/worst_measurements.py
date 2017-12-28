@@ -17,20 +17,26 @@ class Worst_linear_search_measurements:
         return
 
     def test_element(self):
-        temp = self.dictionary.element(len(self.elements) - 1)
+        for index in range(len(self.elements)):
+            temp = self.dictionary.element(len(self.elements) - 1)
         return
 
     def test_index_of(self):
-        temp = self.dictionary.index_of(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.index_of(self.elements[last_index])
         return
 
     def test_contains(self):
-        temp = self.dictionary.contains(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.contains(self.elements[last_index])
         return
 
     def test_insert(self):
         last_index = len(self.elements) - 1
-        self.dictionary.insert(last_index, self.elements[last_index])
+        for index in range(len(self.elements)):
+            self.dictionary.insert(last_index, self.elements[last_index])
         return
 
     def test_delete(self):
@@ -50,27 +56,32 @@ class Worst_ordered_array_measurements:
         return
 
     def test_element(self):
-        temp = self.dictionary.element(len(self.elements) - 1)
+        for index in range(len(self.elements)):
+            temp = self.dictionary.element(len(self.elements) - 1)
         return
 
     def test_index_of(self):
-        temp = self.dictionary.index_of(self.elements[len(self.elements) // 2])
+        for index in range(len(self.elements)):
+            temp = self.dictionary.index_of(self.elements[0])
         return
 
     def test_contains(self):
-        temp = self.dictionary.contains(self.elements[len(self.elements) // 2])
+        for index in range(len(self.elements)):
+            temp = self.dictionary.contains(self.elements[0])
         return
 
     def test_insert(self):
         last_index = len(self.elements) - 1
-        self.dictionary.insert(last_index, self.elements[0])
+        for index in range(len(self.elements)):
+            self.dictionary.insert(last_index - index, self.elements[index])
         return
 
     def test_delete(self):
-        # Was created new min arg after insert and deleted max arg
-        self.dictionary.delete(self.elements[0])
-        for index in range(len(self.elements) - 1):
-            self.dictionary.delete(self.elements[index])
+        cur_len = self.dictionary.count()
+        while cur_len != 0:
+            self.dictionary.delete(self.dictionary.element(cur_len // 2))
+            cur_len = self.dictionary.count()
+        return
 
 
 class Worst_binary_tree_measurements:
@@ -84,25 +95,35 @@ class Worst_binary_tree_measurements:
         return
 
     def test_element(self):
-        temp = self.dictionary.element(len(self.elements) - 1)
+        for index in range(len(self.elements)):
+            temp = self.dictionary.element(len(self.elements) - 1)
         return
 
     def test_index_of(self):
-        temp = self.dictionary.index_of(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.index_of(self.elements[last_index])
         return
 
     def test_contains(self):
-        temp = self.dictionary.contains(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.contains(self.elements[last_index])
         return
 
     def test_insert(self):
         last_index = len(self.elements) - 1
-        self.dictionary.insert(last_index, self.elements[last_index])
+        for index in range(len(self.elements)):
+            self.dictionary.insert(last_index - 1, self.elements[last_index])
         return
 
     def test_delete(self):
         for index in range(len(self.elements) - 1, -1, -1):
-            self.dictionary.delete(self.elements[index])
+            try:
+                self.dictionary.delete(self.elements[index])
+            except:
+                pass
+        return
 
 
 class Worst_balanced_tree_measurements:
@@ -116,25 +137,35 @@ class Worst_balanced_tree_measurements:
         return
 
     def test_element(self):
-        temp = self.dictionary.element(len(self.elements) - 1)
+        for index in range(len(self.elements)):
+            temp = self.dictionary.element(len(self.elements) - 1)
         return
 
     def test_index_of(self):
-        temp = self.dictionary.index_of(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.index_of(self.elements[last_index])
         return
 
     def test_contains(self):
-        temp = self.dictionary.contains(self.elements[len(self.elements) - 1])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.contains(self.elements[last_index])
         return
 
     def test_insert(self):
         last_index = len(self.elements) - 1
-        self.dictionary.insert(last_index, self.elements[last_index])
+        for index in range(len(self.elements)):
+            self.dictionary.insert(last_index - 1, self.elements[last_index])
         return
 
     def test_delete(self):
         for index in range(len(self.elements) - 1, -1, -1):
-            self.dictionary.delete(self.elements[index])
+            try:
+                self.dictionary.delete(self.elements[index])
+            except:
+                pass
+        return
 
 
 class Worst_hash_table_measurements:
@@ -148,29 +179,36 @@ class Worst_hash_table_measurements:
         return
 
     def test_element(self):
-        index = self.dictionary._get_hash(self.elements[0])
-        temp = self.dictionary.element(index)
+        last_index = len(self.elements) - 1
+        index = self.dictionary._get_hash(self.elements[last_index])
+        for i in range(len(self.elements)):
+            temp = self.dictionary.element(index)
         return
 
     def test_index_of(self):
-        temp = self.dictionary.index_of(self.elements[0])
+        last_index = len(self.elements) - 1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.index_of(self.elements[last_index])
         return
 
     def test_contains(self):
-        temp = self.dictionary.contains(self.elements[0])
+        last_index = len(self.elements)-1
+        for index in range(len(self.elements)):
+            temp = self.dictionary.contains(self.elements[last_index])
         return
 
     def test_insert(self):
-        last_index = self.dictionary._get_hash(self.elements[0])
-        self.dictionary.insert(last_index, self.elements[0])
+        for index in range(len(self.elements)):
+            self.dictionary.insert(0, self.elements[0])
         return
 
     def test_delete(self):
-        for index in range(len(self.elements)):
-            try:
+        try:
+            for index in range(len(self.elements)-1, -1, -1):
                 self.dictionary.delete(self.elements[index])
-            except KeyError:
-                pass
+        except:
+            pass
+        return
 
 
 class Worst_dict_measurements:
@@ -180,29 +218,37 @@ class Worst_dict_measurements:
 
     def test_append(self):
         for index in range(len(self.elements)):
-            self.dictionary[self.elements[index]] = index
+            self.dictionary[index] = self.elements[index]
         return
 
     def test_element(self):
-        last_index = len(self.elements) - 1
-        for index in self.dictionary.values():
-            if last_index == index:
-                temp = index
-                break
+        for index in range(len(self.elements)):
+            temp = self.dictionary.get(0)
         return
 
     def test_index_of(self):
-        temp = self.dictionary[1]
+        last_element = self.elements[len(self.elements) - 1]
+        for index in range(len(self.elements)):
+            for element in self.dictionary.values():
+                if element == last_element:
+                    temp = element
+                    break
         return
 
     def test_contains(self):
-        temp = self.elements[0] in self.dictionary
+        for index in range(len(self.elements)):
+            temp = self.elements[0] in self.dictionary
         return
 
     def test_insert(self):
-        self.dictionary[self.elements[0]] = 1
+        for index in range(len(self.elements)):
+            self.dictionary[self.elements[0]] = 0
         return
 
     def test_delete(self):
-        for element in self.elements:
-            self.dictionary.pop(element)
+        for index in range(len(self.elements)-1, -1, -1):
+            try:
+                self.dictionary.pop(self.elements[index])
+            except:
+                pass
+        return

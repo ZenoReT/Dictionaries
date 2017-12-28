@@ -14,7 +14,7 @@ class Average_measurements:
     def test_append(self):
         if type(self.dictionary) is dict:
             for index in range(len(self.elements)):
-                self.dictionary[self.elements[index]] = index
+                self.dictionary[index] = self.elements[index]
         else:
             for index in range(len(self.elements)):
                 self.dictionary.append(self.elements[index])
@@ -22,8 +22,8 @@ class Average_measurements:
 
     def test_element(self):
         if type(self.dictionary) is dict:
-            for element in range(len(self.dictionary)):
-                temp = self.dictionary.get(element)
+            for index in range(len(self.dictionary)):
+                temp = self.dictionary.get(index)
         elif type(self.dictionary) is hash_table.Hash_table:
             for index in range(self.dictionary.count()):
                 temp = self.dictionary.element(
@@ -36,7 +36,9 @@ class Average_measurements:
     def test_index_of(self):
         if type(self.dictionary) is dict:
             for element in self.elements:
-                temp = self.dictionary.get(element)
+                for value in self.dictionary.values():
+                    if value == element:
+                        temp = element
         else:
             for element in self.elements:
                 temp = self.dictionary.index_of(element)
@@ -54,25 +56,40 @@ class Average_measurements:
     def test_insert(self):
         if type(self.dictionary) is dict:
             for index in range(len(self.elements)):
-                self.dictionary[self.elements[index]] = index
+                self.dictionary[index] = self.elements[index]
         elif type(self.dictionary) is hash_table.Hash_table:
             for index in range(len(self.elements)):
                 self.dictionary.insert(self.dictionary._get_hash(index),
                                        self.elements[index])
+        elif (type(self.dictionary) is binary_tree.Binary_tree or
+              type(self.dictionary) is balanced_tree.Balanced_tree):
+            # It's analogue of insert in trees, but don't break connectivity
+            for index in range(len(self.elements)):
+                temp = self.dictionary.element(index)
+                temp.value = temp.value
         else:
             for index in range(len(self.elements)):
                 self.dictionary.insert(index, self.elements[index])
         return
 
     def test_delete(self):
-        try:
-            if type(self.dictionary) is dict:
-                for element in self.elements:
-                    if element in self.dictionary:
-                        self.dictionary.pop(element)
-            else:
+        if type(self.dictionary) is dict:
+            try:
+                for index in range(len(self.elements)):
+                    self.dictionary.pop(index)
+            except:
+                pass
+        elif (type(self.dictionary) is binary_tree.Binary_tree or
+                type(self.dictionary) is balanced_tree.Balanced_tree):
+            try:
+                for index in range(1, len(self.elements)):
+                    self.dictionary.delete(self.elements[index])
+            except:
+                pass
+        else:
+            try:
                 for element in self.elements:
                     self.dictionary.delete(element)
-        except ValueError:
-            pass
+            except:
+                pass
         return
